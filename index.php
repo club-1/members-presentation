@@ -31,6 +31,7 @@ use League\CommonMark\MarkdownConverter;
 
 // Define your configuration, if needed
 $config = [
+    'html_input' => 'strip',
     'external_link' => [
         'internal_hosts' => '', // TODO: Don't forget to set this!
         'open_in_new_window' => true,

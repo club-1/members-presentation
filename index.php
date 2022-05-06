@@ -1,11 +1,11 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
--include __DIR__ . '/config.php';
 
 const CACHE_FILE    = 'cache.html';
 const CACHE_JSON    = 'cache.json';
-$needRender            = false;
+const DEFAULT_COLOR = '#35a0d6';
+$needRender         = false;
 $renderedCounter    = 0;
 
 if (file_exists(CACHE_JSON)) {
@@ -13,9 +13,12 @@ if (file_exists(CACHE_JSON)) {
 } else {
     $needRender = true;
 }
+
 if (!file_exists(CACHE_FILE)) {
     $needRender = true;
 }
+
+$users = array_diff(scandir('/home'), array('..', '.'));
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
@@ -33,12 +36,8 @@ $environment->addExtension(new FrontMatterExtension());
 // Instantiate the converter engine and start converting some Markdown!
 $converter = new MarkdownConverter($environment);
 
-// Check if a specific user list is set in $config
-if (is_array(USERS) && !empty(USERS)) {
-    $users = USERS;
-} else {
-    $users = array_diff(scandir('/home'), array('..', '.'));
-}
+
+
 
 function presentationDir(string $user)
 {
@@ -67,6 +66,7 @@ if (!$needRender) {
     }
 }
 
+// Render the user's div. Used in template.php
 function renderUsers()
 {
     global $converter;
@@ -78,6 +78,7 @@ function renderUsers()
         if (file_exists($presentation) && !empty($presentation)) {
             $md = file_get_contents($presentation);
             $name = $user;
+            $color = DEFAULT_COLOR;
             try {
                 $result = $converter->convert($md);
                 $content = $result->getContent();
@@ -85,6 +86,9 @@ function renderUsers()
                     $frontMatter = $result->getFrontMatter();
                     if (!empty($frontMatter['name'])) {
                         $name = $frontMatter['name'];
+                    }
+                    if (!empty($frontMatter['color'])) {
+                        $color = $frontMatter['color'];
                     }
                 }
             } catch (RuntimeException $e) {

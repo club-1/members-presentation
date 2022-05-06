@@ -10,7 +10,6 @@ body {
 
 .member {
     cursor: pointer;
-    background: #35a0d6;
     color: white;
     border: 1px solid black;
     border-radius: 10px;

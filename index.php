@@ -3,11 +3,23 @@
 require __DIR__ . '/vendor/autoload.php';
 -include __DIR__ . '/config.php';
 
-const CACHE_FILE = 'cache.html';
-$updated = false;
+const CACHE_FILE    = 'cache.html';
+const CACHE_JSON    = 'cache.json';
+$needRender            = false;
+$renderedCounter    = 0;
+
+if (file_exists(CACHE_JSON)) {
+    $cache = json_decode(file_get_contents(CACHE_JSON));
+} else {
+    $needRender = true;
+}
+if (!file_exists(CACHE_FILE)) {
+    $needRender = true;
+}
 
 use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\MarkdownConverter;
 
@@ -21,7 +33,7 @@ $environment->addExtension(new FrontMatterExtension());
 // Instantiate the converter engine and start converting some Markdown!
 $converter = new MarkdownConverter($environment);
 
-
+// Check if a specific user list is set in $config
 if (is_array(USERS) && !empty(USERS)) {
     $users = USERS;
 } else {
@@ -33,7 +45,9 @@ function presentationDir(string $user)
     return "/home/$user/PRESENTATION.md";
 }
 
-if (file_exists(CACHE_FILE)) {
+// Check if cache file is outdated
+if (!$needRender) {
+    $presentationCounter = 0;
     $renderTimestamp = filemtime(CACHE_FILE);
     foreach ($users as $user) {
         $presentation = presentationDir($user);
@@ -41,11 +55,15 @@ if (file_exists(CACHE_FILE)) {
             $timestamp = filemtime($presentation);
             if (is_int($timestamp)) {
                 if ($timestamp >= $renderTimestamp) {
-                    $updated = true;
+                    $needRender = true;
                     break;
                 }
             }
+            $presentationCounter ++;
         }
+    }
+    if (!$needRender) {
+        $needRender = $presentationCounter !== $cache->renderedCounter;
     }
 }
 
@@ -53,6 +71,7 @@ function renderUsers()
 {
     global $converter;
     global $users;
+    global $renderedCounter;
     shuffle($users);
     foreach ($users as $user) {
         $presentation = presentationDir($user);
@@ -74,11 +93,12 @@ function renderUsers()
             }
             $userId = $user;
             include 'templateUser.php';
+            $renderedCounter ++;
         }
     }
 }
 
-if ($updated) {
+if ($needRender) {
     
     ob_start();
 
@@ -89,6 +109,7 @@ if ($updated) {
 
     if (is_string($render)) {
         file_put_contents(CACHE_FILE, $render);
+        file_put_contents(CACHE_JSON, json_encode(['renderedCounter' => $renderedCounter]));
     }
 }
 

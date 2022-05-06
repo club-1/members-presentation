@@ -1,3 +1,4 @@
 config.php
 /vendor/
 cache.html
+cache.json

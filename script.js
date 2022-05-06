@@ -1,5 +1,5 @@
 $(".member").click(function(){
-    var name = $(this).html().toLowerCase();
+    var name = this.dataset.id;
    $("#" + name).show();
  });
  

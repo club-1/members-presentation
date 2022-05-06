@@ -29,6 +29,7 @@ body {
     border: 1px solid black;
     color: black;
     width: fit-content;
+    z-index: 10;
 }
 
 .close {
@@ -72,4 +73,8 @@ main {
     overflow-x: hidden;
     height: 400px;
     width: 400px;
+}
+
+div:target {
+    display: block;
 }

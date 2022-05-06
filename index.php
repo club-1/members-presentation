@@ -21,7 +21,7 @@ $converter = new MarkdownConverter($environment);
 
 
 
-function presentation(string $user)
+function presentationDir(string $user)
 {
     return "/home/$user/PRESENTATION.md";
 }
@@ -29,17 +29,27 @@ function presentation(string $user)
 function renderUsers()
 {
     global $converter;
-    foreach (USERS as $user) {
-        $presentation = presentation($user);
+    $users = USERS;
+    shuffle($users);
+    foreach ($users as $key => $user) {
+        $presentation = presentationDir($user);
         if (file_exists($presentation) && !empty($presentation)) {
             $md = file_get_contents($presentation);
-            $result = $converter->convert($md);
-            $content = $result->getContent();
-            if ($result instanceof RenderedContentWithFrontMatter) {
-                $frontMatter = $result->getFrontMatter();
-                $name = $frontMatter['name'] ?? $user;
+            $name = $user;
+            try {
+                $result = $converter->convert($md);
+                $content = $result->getContent();
+                if ($result instanceof RenderedContentWithFrontMatter) {
+                    $frontMatter = $result->getFrontMatter();
+                    if (!empty($frontMatter['name'])) {
+                        $name = $frontMatter['name'];
+                    }
+                }
+            } catch (RuntimeException $e) {
+                $message = $e->getMessage();
+                $content = "render error : $message";
             }
-
+            $userId = $user;
             include 'templateUser.php';
         }
     }

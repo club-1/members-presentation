@@ -1,5 +1,5 @@
-<div class="member"><?= $user ?></div>
-<div class="presentation" id="<?= $user ?>">
+<div class="member" data-id="<?= $userId ?>" ><?= $name ?></div>
+<div class="presentation" id="<?= $userId ?>">
     <div class="handle"><?= $name ?></div>
     <div class="close">x</div>
 

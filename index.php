@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/config.php';
+-include __DIR__ . '/config.php';
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
@@ -19,6 +19,12 @@ $environment->addExtension(new FrontMatterExtension());
 $converter = new MarkdownConverter($environment);
 
 
+if (is_array(USERS) && !empty(USERS)) {
+    $users = USERS;
+} else {
+    $users = array_diff(scandir('/home'), array('..', '.'));
+}
+
 
 
 function presentationDir(string $user)
@@ -29,7 +35,7 @@ function presentationDir(string $user)
 function renderUsers()
 {
     global $converter;
-    $users = USERS;
+    global $users;
     shuffle($users);
     foreach ($users as $key => $user) {
         $presentation = presentationDir($user);

@@ -1,0 +1,16 @@
+{
+    "name": "club-1/members-presentation",
+    "description": "script generating an html page gathering members presentations files",
+    "type": "project",
+    "require": {
+        "league/commonmark": "^2.3",
+        "symfony/yaml": "^5.4"
+    },
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Vincent Peugnet",
+            "email": "vincent-peugnet@riseup.net"
+        }
+    ]
+}

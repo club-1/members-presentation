@@ -1,0 +1,75 @@
+h1, h2, footer {text-align: center;margin: 0;}
+
+
+body {
+    margin: auto;
+    font-family: monospace;
+    background-size: contain;
+    height: 100%;
+}
+
+.member {
+    cursor: pointer;
+    background: #35a0d6;
+    color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 11px;
+    margin: 15px;
+}
+
+
+
+.presentation {
+    display: none;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    background: white;
+    border: 1px solid black;
+    color: black;
+    width: fit-content;
+}
+
+.close {
+    padding: 4px;
+    text-align: right;
+    font-size: 21px;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: white;
+}
+
+.handle {
+    cursor: move;
+    border-bottom: 1px
+ 	black solid;
+    height: 24px;
+    background: black;
+    color: white;
+    text-align: left;
+    padding-top: 9px;
+    padding-left: 17px;
+}
+
+a, a:visited {
+    color: blue;
+}
+
+html {
+    height: 100%;
+}
+
+main {
+    display: flex;
+}
+
+.content {
+    overflow-x: hidden;
+    height: 400px;
+    width: 400px;
+}

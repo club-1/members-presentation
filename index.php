@@ -21,24 +21,30 @@ $converter = new MarkdownConverter($environment);
 
 
 
-function aboutMe(string $user)
+function presentation(string $user)
 {
     return "/home/$user/PRESENTATION.md";
 }
 
-foreach (USERS as $user) {
-    $aboutMe = aboutMe($user);
-    if (file_exists($aboutMe) && !empty($aboutMe)) {
-        $md = file_get_contents($aboutMe);
-        $result = $converter->convert($md);
-        $content = $result->getContent();
-        if ($result instanceof RenderedContentWithFrontMatter) {
-            $frontMatter = $result->getFrontMatter();
-            $memberName = $frontMatter['name'] ?? $user;
-        }
+function renderUsers()
+{
+    global $converter;
+    foreach (USERS as $user) {
+        $presentation = presentation($user);
+        if (file_exists($presentation) && !empty($presentation)) {
+            $md = file_get_contents($presentation);
+            $result = $converter->convert($md);
+            $content = $result->getContent();
+            if ($result instanceof RenderedContentWithFrontMatter) {
+                $frontMatter = $result->getFrontMatter();
+                $name = $frontMatter['name'] ?? $user;
+            }
 
-        include('template.php');
+            include 'templateUser.php';
+        }
     }
 }
+
+include 'template.php';
 
 ?>

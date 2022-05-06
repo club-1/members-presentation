@@ -26,14 +26,26 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
+use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
 use League\CommonMark\MarkdownConverter;
 
-// Configure the Environment with all the CommonMark parsers/renderers
-$environment = new Environment();
-$environment->addExtension(new CommonMarkCoreExtension());
+// Define your configuration, if needed
+$config = [
+    'external_link' => [
+        'internal_hosts' => '', // TODO: Don't forget to set this!
+        'open_in_new_window' => true,
+        'html_class' => 'external-link',
+        'nofollow' => '',
+        'noopener' => 'external',
+        'noreferrer' => 'external',
+    ],
+];
 
-// Add the extension
+// Configure the Environment with all the CommonMark parsers/renderers
+$environment = new Environment($config);
+$environment->addExtension(new CommonMarkCoreExtension());
 $environment->addExtension(new FrontMatterExtension());
+$environment->addExtension(new ExternalLinkExtension());
 
 // Instantiate the converter engine and start converting some Markdown!
 $converter = new MarkdownConverter($environment);

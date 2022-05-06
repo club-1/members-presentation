@@ -3,6 +3,9 @@
 require __DIR__ . '/vendor/autoload.php';
 -include __DIR__ . '/config.php';
 
+const CACHE_FILE = 'cache.html';
+$updated = false;
+
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
@@ -25,11 +28,25 @@ if (is_array(USERS) && !empty(USERS)) {
     $users = array_diff(scandir('/home'), array('..', '.'));
 }
 
-
-
 function presentationDir(string $user)
 {
     return "/home/$user/PRESENTATION.md";
+}
+
+if (file_exists(CACHE_FILE)) {
+    $renderTimestamp = filemtime(CACHE_FILE);
+    foreach ($users as $user) {
+        $presentation = presentationDir($user);
+        if (file_exists($presentation) && !empty($presentation)) {
+            $timestamp = filemtime($presentation);
+            if (is_int($timestamp)) {
+                if ($timestamp >= $renderTimestamp) {
+                    $updated = true;
+                    break;
+                }
+            }
+        }
+    }
 }
 
 function renderUsers()
@@ -37,7 +54,7 @@ function renderUsers()
     global $converter;
     global $users;
     shuffle($users);
-    foreach ($users as $key => $user) {
+    foreach ($users as $user) {
         $presentation = presentationDir($user);
         if (file_exists($presentation) && !empty($presentation)) {
             $md = file_get_contents($presentation);
@@ -61,6 +78,21 @@ function renderUsers()
     }
 }
 
-include 'template.php';
+if ($updated) {
+    
+    ob_start();
+
+    include 'template.php';
+
+    $render = ob_get_contents();
+    ob_end_clean();
+
+    if (is_string($render)) {
+        file_put_contents(CACHE_FILE, $render);
+    }
+}
+
+include 'cache.html';
+
 
 ?>

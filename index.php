@@ -1,5 +1,7 @@
 <?php
 
+umask(0002);
+
 require __DIR__ . '/vendor/autoload.php';
 
 const CACHE_FILE    = 'cache.html';

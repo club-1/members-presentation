@@ -57,3 +57,15 @@ Sample Iframe configuration:
 </html>
 
 ```
+
+Develop
+-------
+
+clone the git repo
+
+    git clone https://github.com/club-1/members-presentation
+
+Install dependencies
+
+    composer install
+

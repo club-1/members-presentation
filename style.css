@@ -77,3 +77,17 @@ main {
 div:target {
     display: block;
 }
+
+footer {
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+}
+
+footer a, footer a:visited {
+    color: grey;
+}
+
+footer a:hover {
+    color: blue;
+}

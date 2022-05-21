@@ -66,6 +66,8 @@ html {
 
 main {
     display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
 }
 
 .content {

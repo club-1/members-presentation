@@ -67,5 +67,5 @@ clone the git repo
 
 Install dependencies
 
-    composer install
+    make
 

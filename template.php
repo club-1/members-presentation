@@ -11,11 +11,12 @@
         </main>
         <footer>
             <a
-                href="https://club1.fr/docs/fr/info/espace-personnel.html#fichier-de-presentation"
+                href="https://club1.fr/docs/fr/tutos/presentation.html"
                 target="_blank"
                 title="lien vers la documentation de CLUB1"
+                id="help"
             >
-                Comment éditer sa présentation ?
+                👉 Comment éditer sa présentation ?
             </a>
         </footer>
         <script src="script.js" defer></script>

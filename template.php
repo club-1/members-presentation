@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <link rel="stylesheet" href="/assets/jquery-ui-1.13.2/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="assets/jquery-ui-1.13.2/jquery-ui.min.css"/>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -19,7 +19,7 @@
             </a>
         </footer>
         <script src="script.js" defer></script>
-        <script src="/assets/jquery-3.6.2.min.js"></script>
-        <script src="/assets/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+        <script src="assets/jquery-3.6.2.min.js"></script>
+        <script src="assets/jquery-ui-1.13.2/jquery-ui.min.js"></script>
     </body>
 </html>

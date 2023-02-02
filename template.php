@@ -4,6 +4,7 @@
         <meta charset="utf-8"/>
         <link rel="stylesheet" href="assets/jquery-ui-1.13.2/jquery-ui.min.css"/>
         <link rel="stylesheet" href="style.css">
+        <link rel="canonical" href="https://club1.fr/membres/">
     </head>
     <body>
         <main>

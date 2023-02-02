@@ -19,10 +19,13 @@ vendor: composer.json composer.lock
 	composer install
 	touch $@
 
-clean:
+clean: cleancache
 	rm -r assets
 	rm -r vendor
 
-.PHONY: all clean
+cleancache:
+	rm $(wildcard cache.*)
+
+.PHONY: all clean cleancache
 
 .INTERMEDIATE: assets/jquery-ui-1.13.2.zip

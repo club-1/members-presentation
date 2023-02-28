@@ -4,8 +4,10 @@ h1, h2, footer {text-align: center;margin: 0;}
 body {
     margin: auto;
     font-family: monospace;
-    background-size: contain;
     height: 100%;
+    background-image: url(cabane.webp);
+    background-position: center;
+    background-size: cover;
 }
 
 .member {

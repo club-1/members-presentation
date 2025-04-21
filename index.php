@@ -6,7 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 const CACHE_FILE    = 'cache.html';
 const CACHE_JSON    = 'cache.json';
-const DEFAULT_COLOR = '#35a0d6';
+const DEFAULT_BACKGROUND = '#35a0d6';
 $needRender         = false;
 $renderedCounter    = 0;
 
@@ -93,7 +93,7 @@ function renderUsers()
         if (file_exists($presentation) && !empty($presentation)) {
             $md = file_get_contents($presentation);
             $name = $user;
-            $color = DEFAULT_COLOR;
+            $background = DEFAULT_BACKGROUND;
             try {
                 $result = $converter->convert($md);
                 $content = $result->getContent();
@@ -102,8 +102,8 @@ function renderUsers()
                     if (!empty($frontMatter['name'])) {
                         $name = $frontMatter['name'];
                     }
-                    if (!empty($frontMatter['color'])) {
-                        $color = $frontMatter['color'];
+                    if (!empty($frontMatter['background'])) {
+                        $background = $frontMatter['background'];
                     }
                 }
             } catch (RuntimeException $e) {

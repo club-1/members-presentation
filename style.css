@@ -8,6 +8,7 @@ body {
     background-image: url(cabane.webp);
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .member {
@@ -76,7 +77,6 @@ main {
     overflow: hidden;
     flex-wrap: wrap;
     align-content: flex-start;
-    height: 100%;
 }
 
 .content {
@@ -90,7 +90,7 @@ div:target {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 1%;
     right: 1%;
     font-size: large;

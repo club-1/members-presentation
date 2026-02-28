@@ -74,9 +74,11 @@ html {
 
 main {
     display: flex;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     flex-wrap: wrap;
     align-content: flex-start;
+    height: 100%;
 }
 
 .content {

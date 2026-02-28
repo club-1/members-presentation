@@ -24,9 +24,11 @@ $users = array_diff(scandir('/home'), array('..', '.'));
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
+use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
 use League\CommonMark\MarkdownConverter;
 
 // Define your configuration, if needed
@@ -40,6 +42,11 @@ $config = [
         'noopener' => 'external',
         'noreferrer' => 'external',
     ],
+    'default_attributes' => [
+        Image::class => [
+            'loading' => 'lazy',
+        ],
+    ],
 ];
 
 // Configure the Environment with all the CommonMark parsers/renderers
@@ -47,6 +54,7 @@ $environment = new Environment($config);
 $environment->addExtension(new CommonMarkCoreExtension());
 $environment->addExtension(new FrontMatterExtension());
 $environment->addExtension(new ExternalLinkExtension());
+$environment->addExtension(new DefaultAttributesExtension());
 
 // Instantiate the converter engine and start converting some Markdown!
 $converter = new MarkdownConverter($environment);

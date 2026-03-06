@@ -119,9 +119,10 @@ function renderUsers()
                     if (!empty($frontMatter['urls'])) {
                         $urls = $frontMatter['urls'];
                         if (is_string($urls)) {
-                            $urls = [$urls];
+                            $webringUrls[] = $urls;
+                        } elseif (is_array($urls)) {
+                            $webringUrls = array_merge($webringUrls, array_values($urls));
                         }
-                        $webringUrls = array_merge($webringUrls, array_values($urls));
                     }
                 }
             } catch (RuntimeException $e) {

@@ -134,7 +134,6 @@ function renderUsers()
             $renderedCounter ++;
         }
     }
-    shuffle($webringUrls);
 }
 
 if ($needRender) {

@@ -14,6 +14,6 @@ if (empty($webring['urls'])) {
     die;
 }
 
-$target = $webring['urls'][random_int(0, count($webring['urls']))];
+$target = $webring['urls'][random_int(0, count($webring['urls']) - 1)];
 header('Location: ' . $target);
 

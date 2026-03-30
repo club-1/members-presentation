@@ -116,8 +116,8 @@ function renderUsers()
                     if (!empty($frontMatter['color'])) {
                         $color = $frontMatter['color'];
                     }
-                    if (!empty($frontMatter['urls'])) {
-                        $urls = $frontMatter['urls'];
+                    if (!empty($frontMatter['websites'])) {
+                        $urls = $frontMatter['websites'];
                         if (is_string($urls)) {
                             $webringUrls[] = $urls;
                         } elseif (is_array($urls)) {

@@ -118,9 +118,7 @@ function renderUsers()
                     }
                     if (!empty($frontMatter['websites'])) {
                         $urls = $frontMatter['websites'];
-                        if (is_string($urls)) {
-                            $webringUrls[] = $urls;
-                        } elseif (is_array($urls)) {
+                        if (is_array($urls)) {
                             $webringUrls = array_merge($webringUrls, array_values($urls));
                         }
                     }

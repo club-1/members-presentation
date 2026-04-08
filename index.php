@@ -6,6 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 const CACHE_FILE    = 'cache.html';
 const CACHE_JSON    = 'cache.json';
+const WEBRING_JSON  = 'webring.json';
 const DEFAULT_COLOR = '#35a0d6';
 $needRender         = false;
 $renderedCounter    = 0;
@@ -21,6 +22,7 @@ if (!file_exists(CACHE_FILE)) {
 }
 
 $users = array_diff(scandir('/home'), array('..', '.'));
+$webringUrls = [];
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
@@ -95,6 +97,7 @@ function renderUsers()
     global $converter;
     global $users;
     global $renderedCounter;
+    global $webringUrls;
     shuffle($users);
     foreach ($users as $user) {
         $presentation = presentationDir($user);
@@ -112,6 +115,12 @@ function renderUsers()
                     }
                     if (!empty($frontMatter['color'])) {
                         $color = $frontMatter['color'];
+                    }
+                    if (!empty($frontMatter['websites'])) {
+                        $urls = $frontMatter['websites'];
+                        if (is_array($urls)) {
+                            $webringUrls = array_merge($webringUrls, array_values($urls));
+                        }
                     }
                 }
             } catch (RuntimeException $e) {
@@ -137,10 +146,9 @@ if ($needRender) {
     if (is_string($render)) {
         file_put_contents(CACHE_FILE, $render);
         file_put_contents(CACHE_JSON, json_encode(['renderedCounter' => $renderedCounter]));
+        file_put_contents(WEBRING_JSON, json_encode(['urls' => $webringUrls]);
     }
 }
 
-include 'cache.html';
+include CACHE_FILE;
 
-
-?>

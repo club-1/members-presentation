@@ -1,7 +1,6 @@
 <?php
 
 const WEBRING_JSON = 'webring.json';
-const ERROR_TARGET = 'https://club1.fr';
 
 if (!file_exists(WEBRING_JSON)) {
 	http_response_code(500);
@@ -15,5 +14,7 @@ if (empty($webring['urls'])) {
 }
 
 $target = $webring['urls'][random_int(0, count($webring['urls']) - 1)];
+// Using Location header magically set the response code to `302`
+// <https://www.php.net/manual/fr/function.header.php>
 header('Location: ' . $target);
 

@@ -19,6 +19,23 @@ color: pink
 bla bla *bla*
 ```
 
+### Webring
+
+In the *Front Matter*, users may also define a list of websites using the `website` key.
+
+```yaml
+websites:
+    - https://cool.land
+    - https://my-site.club1.fr
+```
+
+All thoses websites are aggregated in a JSON file called `webring.json`, under the `urls` key.
+Thus file is rendered at the same time of main render (HTML presentation page).
+
+#### Random website
+
+The path `hasard.php` redirect to a random website from this list.
+
 
 Iframing
 --------

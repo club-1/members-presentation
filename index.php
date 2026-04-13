@@ -135,7 +135,6 @@ function renderUsers()
 }
 
 if ($needRender) {
-    
     ob_start();
 
     include 'template.php';
@@ -146,7 +145,7 @@ if ($needRender) {
     if (is_string($render)) {
         file_put_contents(CACHE_FILE, $render);
         file_put_contents(CACHE_JSON, json_encode(['renderedCounter' => $renderedCounter]));
-        file_put_contents(WEBRING_JSON, json_encode(['urls' => $webringUrls]);
+        file_put_contents(WEBRING_JSON, json_encode(['urls' => $webringUrls]));
     }
 }
 

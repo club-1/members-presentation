@@ -7,7 +7,7 @@ if (!file_exists(WEBRING_JSON)) {
     die;
 }
 
-$webring = json_decode(file_get_contents(WEBRING_JSON));
+$webring = json_decode(file_get_contents(WEBRING_JSON), true);
 if (empty($webring['urls'])) {
 	http_response_code(500);
     die;

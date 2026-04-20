@@ -119,7 +119,7 @@ function renderUsers()
                     if (!empty($frontMatter['websites'])) {
                         $urls = $frontMatter['websites'];
                         if (is_array($urls)) {
-                            $webringUrls = array_merge($webringUrls, array_values($urls));
+                            $webringUrls = array_merge($webringUrls, array_unique($urls));
                         }
                     }
                 }

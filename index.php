@@ -126,7 +126,10 @@ function renderUsers()
 					if (!empty($urls[1])) {
 						foreach ($urls[1] as $url) {
 							$baseUrl = str_replace('https://', '', $url);
-							$baseUrl = 'https://' . strstr($baseUrl, '/', true) . '/';
+							if (str_contains('/')) {
+								$baseUrl = strstr($baseUrl, '/', true);
+							}
+							$baseUrl = 'https://' .	$baseUrl . '/';
 							if (in_array($baseUrl, $allHostedWebsites) && !in_array($url, $webringUrls)) {
 								$webringUrls[] = $url;
 							}

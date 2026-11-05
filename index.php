@@ -22,6 +22,10 @@ if (!file_exists(CACHE_FILE)) {
 }
 
 $users = array_diff(scandir('/home'), array('..', '.'));
+$allHostedWebsites = shell_exec('websites');
+if (!empty($allHostedWebsites)) {
+	$allHostedWebsites = explode(PHP_EOL, $allHostedWebsites);
+}
 $webringUrls = [];
 
 use League\CommonMark\Environment\Environment;
@@ -98,6 +102,7 @@ function renderUsers()
     global $users;
     global $renderedCounter;
     global $webringUrls;
+    global $allHostedWebsites;
     shuffle($users);
     foreach ($users as $user) {
         $presentation = presentationDir($user);
@@ -116,12 +121,20 @@ function renderUsers()
                     if (!empty($frontMatter['color'])) {
                         $color = $frontMatter['color'];
                     }
-                    if (!empty($frontMatter['websites'])) {
-                        $urls = $frontMatter['websites'];
-                        if (is_array($urls)) {
-                            $webringUrls = array_merge($webringUrls, array_unique($urls));
-                        }
-                    }
+					$urls = [];
+					preg_match_all('/href="([^"]+)"/', $content, $urls);
+					if (!empty($urls[1])) {
+						foreach ($urls[1] as $url) {
+							$baseUrl = str_replace('https://', '', $url);
+							if (str_contains($baseUrl, '/')) {
+								$baseUrl = strstr($baseUrl, '/', true);
+							}
+							$baseUrl = 'https://' .	$baseUrl . '/';
+							if (in_array($baseUrl, $allHostedWebsites) && !in_array($url, $webringUrls)) {
+								$webringUrls[] = $url;
+							}
+						}
+					}
                 }
             } catch (RuntimeException $e) {
                 $message = $e->getMessage();

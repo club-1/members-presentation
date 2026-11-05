@@ -21,21 +21,15 @@ bla bla *bla*
 
 ### Webring
 
-In the *Front Matter*, users may also define a list of websites using the `website` key.
-
-```yaml
-websites:
-    - https://cool.land
-    - https://my-site.club1.fr
-```
+Links found in a user's content are aggregated in a list of websites to be used as a webring.
+Only valid Club1 hosted websites links are added to the list, as per the `websites` shell command available on the server.
 
 All thoses websites are aggregated in a JSON file called `webring.json`, under the `urls` key.
-Thus file is rendered at the same time of main render (HTML presentation page).
+This file is rendered at the same time of main render (HTML presentation page).
 
 #### Random website
 
 The path `hasard.php` redirect to a random website from this list.
-
 
 Iframing
 --------

@@ -126,7 +126,7 @@ function renderUsers()
 					if (!empty($urls[1])) {
 						foreach ($urls[1] as $url) {
 							$baseUrl = str_replace('https://', '', $url);
-							if (str_contains('/')) {
+							if (str_contains($baseUrl, '/')) {
 								$baseUrl = strstr($baseUrl, '/', true);
 							}
 							$baseUrl = 'https://' .	$baseUrl . '/';
